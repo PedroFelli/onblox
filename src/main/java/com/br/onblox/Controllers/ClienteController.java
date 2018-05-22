@@ -2,7 +2,7 @@ package com.br.onblox.Controllers;
 
 import com.br.onblox.Service.ClienteService;
 import com.br.onblox.entity.Cliente;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
-import java.util.logging.Logger;
+
 
 public class ClienteController {
    @Autowired
@@ -39,7 +39,7 @@ public class ClienteController {
    }
 
    @RequestMapping(value = "/cliente/", method = RequestMethod.POST)
-    public ResponseEntity<Cliente> createCliente(RequestBody Cliente cliente, UriComponentsBuilder ucBuilder){
+    public ResponseEntity<String> createCliente(@RequestBody Cliente cliente, UriComponentsBuilder ucBuilder){
         if (clienteService.isClienteExist(cliente)){
             return new ResponseEntity(HttpStatus.CONFLICT);
         }
@@ -52,16 +52,16 @@ public class ClienteController {
    }
 
    @RequestMapping(value ="/cliente/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<?> updateCliente(@PathVariable("id") long id, RequestBody Cliente cliente){
+    public ResponseEntity<?> updateCliente(@PathVariable("id") long id, @RequestBody Cliente cliente){
         Cliente currentCliente = clienteService.findById(String.valueOf(id));
         if (currentCliente == null){
             return new ResponseEntity( HttpStatus.NOT_FOUND);
        }
-       currentCliente.setCpf(cliente.getCpf);
-       currentCliente.setId(cliente.getId);
-       currentCliente.setNome(cliente.getNome);
-       currentCliente.setStatus(cliente.getStatus);
-       currentCliente.setTipo(cliente.getTipo);
+       currentCliente.setCpf(cliente.getCpf());
+       currentCliente.setId(cliente.getId());
+       currentCliente.setNome(cliente.getNome());
+       currentCliente.setStatus(cliente.getStatus());
+       currentCliente.setTipo(cliente.getTipo());
 
        clienteService.updateCliente(currentCliente);
        return new ResponseEntity<Cliente>(currentCliente, HttpStatus.OK);

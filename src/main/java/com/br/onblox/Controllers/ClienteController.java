@@ -2,6 +2,7 @@ package com.br.onblox.Controllers;
 
 import com.br.onblox.Service.ClienteService;
 import com.br.onblox.entity.Cliente;
+import com.br.onblox.entity.Contato;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -22,7 +23,7 @@ public class ClienteController {
 
    @RequestMapping(value = "/cliente/", method = RequestMethod.GET)
     public ResponseEntity<List<Cliente>> listAllCliente(){
-       List<Cliente> clientes = clienteService.findAllCliente();
+       List<Cliente> clientes = clienteService.findAllClientes();
        if(clientes.isEmpty()){
            return new ResponseEntity(HttpStatus.NO_CONTENT);
        }
@@ -31,7 +32,7 @@ public class ClienteController {
 
    @RequestMapping(value = "/cliente/{id}", method = RequestMethod.GET)
     public ResponseEntity<Cliente> getCliente(@PathVariable("id") long id){
-        Cliente cliente = clienteService.findById(String.valueOf(id));
+        Cliente cliente = clienteService.findById(id);
         if (cliente == null){
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
@@ -53,7 +54,7 @@ public class ClienteController {
 
    @RequestMapping(value ="/cliente/{id}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateCliente(@PathVariable("id") long id, @RequestBody Cliente cliente){
-        Cliente currentCliente = clienteService.findById(String.valueOf(id));
+        Cliente currentCliente = clienteService.findById(id);
         if (currentCliente == null){
             return new ResponseEntity( HttpStatus.NOT_FOUND);
        }
@@ -62,6 +63,7 @@ public class ClienteController {
        currentCliente.setNome(cliente.getNome());
        currentCliente.setStatus(cliente.getStatus());
        currentCliente.setTipo(cliente.getTipo());
+     
 
        clienteService.updateCliente(currentCliente);
        return new ResponseEntity<Cliente>(currentCliente, HttpStatus.OK);
@@ -69,7 +71,7 @@ public class ClienteController {
 
     @RequestMapping(value = "/cliente/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Cliente> deleteCliente(@PathVariable("id") long id){
-        Cliente cliente = clienteService.findById(String.valueOf(id));
+        Cliente cliente = clienteService.findById(id);
         if(cliente == null){
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
@@ -79,7 +81,7 @@ public class ClienteController {
 
     @RequestMapping(value = "/cliente/", method = RequestMethod.DELETE)
     public ResponseEntity<Cliente> deleteAllClientes(){
-        clienteService.deleteAllCliente();
+        clienteService.deleteAllClientes();
         return new ResponseEntity<Cliente>(HttpStatus.NO_CONTENT);
     }
 

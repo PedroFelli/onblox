@@ -1,47 +1,25 @@
 package com.br.onblox.Service;
 
 import com.br.onblox.entity.Cliente;
-import com.br.onblox.repository.ClienteRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
+public interface ClienteService {
 
-@Service("userService")
-@Transactional
-public class ClienteService {
+    Cliente findById(Long id);
 
-    @Autowired
-    private ClienteRepository clienteRepository;
+    Cliente findByName(String name);
 
-    public Cliente findById(String cpf){
-        return clienteRepository.findByCpf(cpf);
-    }
+    void saveCliente(Cliente cliente);
 
-    public void saveCliente(Cliente cliente){
-        clienteRepository.save(cliente);
-    }
+    void updateCliente(Cliente cliente);
 
-    public void updateCliente(Cliente cliente){
-        saveCliente(cliente);
-    }
+    void deleteClienteById(Long id);
 
-    public void deleteClienteById(Long id){
-        clienteRepository.deleteById(id);
-    }
+    void deleteAllClientes();
 
+    List<Cliente> findAllClientes();
 
-    public void deleteAllCliente(){
-        clienteRepository.deleteAll();
-    }
+    boolean isClienteExist(Cliente cliente);
 
-    public List<Cliente> findAllCliente(){
-        return clienteRepository.findAll();
-    }
-
-    public boolean isClienteExist(Cliente cliente){
-        return findById(String.valueOf(cliente.getId())) != null;
-    }
 }

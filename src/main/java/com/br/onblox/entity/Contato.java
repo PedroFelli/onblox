@@ -6,32 +6,30 @@ import javax.persistence.*;
 @Table(name="contato")
 public class Contato {
 
+
 	@Id
 	@Column(name="id")
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
-
-	@Id
-	@Column(name="telefone")
-	private int telefone;
-
-	@Id
-	@Column(name="endereco")
-	private String endereco;
-
-	@Id
-	@Column(name="email")
-	private String email;
-
-
-
-	public Long getId() {
+	private int id;
+	
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
+
+	@Column(name="telefone")
+	private int telefone;
+
+
+	@Column(name="endereco")
+	private String endereco;
+
+	
+	@Column(name="email")
+	private String email;
+
 
 	public int getTelefone() {
 		return telefone;

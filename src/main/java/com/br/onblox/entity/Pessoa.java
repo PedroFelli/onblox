@@ -3,41 +3,46 @@ package com.br.onblox.entity;
 
 import javax.persistence.*;
 
-@Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+
+@MappedSuperclass
 public abstract class Pessoa {
 
 	@Id
 	@Column(name="id")
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private int id;
+	
+	public int getId() {
+		return id;
+	}
 
-	@Id
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Contato getContato() {
+		return contato;
+	}
+
+	public void setContato(Contato contato) {
+		this.contato = contato;
+	}
+
 	@Column(name="nome")
 	private String nome;
 
-
-	@Id
 	@Column(name="tipo")
 	private String tipo;
 
-	@Id
+	
 	@Column(name="status")
 	private int status;
 
 
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "idcontato")
 	private Contato contato;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getNome() {
 		return nome;

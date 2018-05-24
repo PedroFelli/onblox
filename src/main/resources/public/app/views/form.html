@@ -1,0 +1,23 @@
+<div ng-controller="loginCtrl">
+   <form action="/" id="myLogin">
+    <div class="container">
+      <div class="card card-login mx-auto mt-5">
+        <div class="card-header">OnBlox</div>
+        <div class="card-body">
+          <form>
+            <div class="form-group">
+              <label>Login</label>
+              <input class="form-control" ng-model="name" type="text" aria-describedby="emailHelp" placeholder="Digite o login">
+            </div>
+            <div class="form-group">
+              <label>Senha</label>
+              <input class="form-control" ng-model="password" type="password" placeholder="Senha">
+            </div>
+            <button type="button"  class="btn btn-primary btn-lg btn-block"  ng-click="submit()">Login</button>
+          </form>
+        </div>
+      </div>
+    </div>  
+    </form>  
+</div>
+

@@ -12,19 +12,25 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
 
+@RestController
+@RequestMapping("/api")
 public class ClienteController {
-   @Autowired
+   
+	@Autowired
     ClienteService clienteService;
 
    @RequestMapping(value = "/cliente/", method = RequestMethod.GET)
     public ResponseEntity<List<Cliente>> listAllCliente(){
+	   System.out.println("teste");
        List<Cliente> clientes = clienteService.findAllClientes();
        if(clientes.isEmpty()){
+
            return new ResponseEntity(HttpStatus.NO_CONTENT);
        }
        return new ResponseEntity<List<Cliente>>(clientes, HttpStatus.OK);

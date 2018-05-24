@@ -10,13 +10,23 @@ import java.util.List;
 
 @Service("clienteService")
 @Transactional
-public class ClienteServiceImpl {
+public class ClienteServiceImpl implements ClienteService {
 
     @Autowired
     private ClienteRepository clienteRepository;
 
     public Cliente findById(String cpf){
         return clienteRepository.findByCpf(cpf);
+    }
+
+    @Override
+    public Cliente findById(Long id) {
+        return null;
+    }
+
+    @Override
+    public Cliente findByName(String name) {
+        return null;
     }
 
     public void saveCliente(Cliente cliente){
@@ -29,6 +39,16 @@ public class ClienteServiceImpl {
 
     public void deleteClienteById(Long id){
         clienteRepository.deleteById(id);
+    }
+
+    @Override
+    public void deleteAllClientes() {
+
+    }
+
+    @Override
+    public List<Cliente> findAllClientes() {
+        return clienteRepository.findAll();
     }
 
 

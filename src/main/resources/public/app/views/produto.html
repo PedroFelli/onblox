@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav" >
     <a class="navbar-brand" href="index.html">Start Bootstrap</a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -122,7 +122,7 @@
         </ul>
     </div>
 </nav>
-<div class="content-wrapper">
+<div class="content-wrapper"  ng-controller="produtoCtrl">
     <div class="container-fluid" style="margin-top : 50px">
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
@@ -138,36 +138,33 @@
                 <i class="fa fa-table"></i> Produtos</div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" ng-controller="produtoCtrl">
+                    <table class="table table-bordered" width="100%" cellspacing="0">
                         <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>Numero</th>
                             <th>Nome</th>
-                            <th>Tipo</th>
+                            <th>Quantidade</th>
                             <th>Editar</th>
                             <th>Deletar</th>
                         </tr>
                         </thead>
                         <tfoot>
-                        <tr>
-                            <th>Name</th>
-                            <th>Preço</th>
-                            <th>Quantidade</th>
-                            <th>Editar</th>
-                            <th>Deletar</th>
-                        </tr>
-                        </tfoot>
+
                         <tbody>
-                        <tr ng-repeat="produto in produtos">
-                            <td>{{produto.id}}</td>
+                        <tr ng-repeat="produto in produtos track by $index">
+                            <td>{{$index + 1}}</td>
                             <td>{{produto.name}}</td>
                             <td>{{produto.quantidade}}</td>
-                            <td><button  type="button" class="btn btn-primary"><i class="fa fa-pencil fa-lg"></i> </button></td>
-                            <td><button  type="button" class="btn btn-primary"> <i class="fa fa-trash-o fa-lg"></i></button></td>
+                            <td> <button type="button" class="btn btn-primary" data-toggle="modal" ng-click="edit(produto)" data-target="#editarModdal">Editar</button></td>
+
+
+
+                            <td><button  type="button" class="btn btn-primary"  ng-click="remove(produto)"> <i class="fa fa-trash-o fa-lg"></i></button></td>
                         </tr>
                         </tbody>
 
                     </table>
+
 
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#adicionarModdal">
                         Adicionar
@@ -186,7 +183,51 @@
 
 
 
-    <!-- Modal -->
+
+    <!-- Modal Editar -->
+    <div class="modal fade" id="editarModdal" tabindex="-1" role="dialog" aria-labelledby="EditarModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="EditarModalLabel">Adicionar</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label for="name">Nome</label>
+                                    <input class="form-control" id="editname" type="text" placeholder="Digite o nome" ng-model="current.name" value="{{current.name}} >
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="quantidade">Quantidade</label>
+                                    <input class="form-control" id="editquantidade" type="text"  placeholder="Digite a quantidade" ng-model="current.quantidade" value="{{current.quantidade}}">
+                                </div>
+                                <br>
+                                <div class="col-md-6">
+                                    <label for="preco">Preço</label>
+                                    <input class="form-control" id="editpreco" type="text" placeholder="Digite o nome"  ng-model="current.preco" value="{{current.preco}}" >
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" ng-click="save(current)" data-dismiss="modal">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- Modal Novo -->
     <div class="modal fade" id="adicionarModdal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -201,28 +242,26 @@
                         <div class="form-group">
                             <div class="form-row">
                                 <div class="col-md-6">
-                                    <label for="exampleInputName">Nome</label>
-                                    <input class="form-control" id="exampleInputName" type="text" placeholder="Digite o nome">
+                                    <label for="name">Nome</label>
+                                    <input class="form-control" id="name" type="text" placeholder="Digite o nome" ng-model="current.name" value="{{current.name}} >
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="exampleInputLastName">Quantidade</label>
-                                    <input class="form-control" id="exampleInputLastName" type="text"  placeholder="Digite a quantidade">
+                                    <label for="quantidade">Quantidade</label>
+                                    <input class="form-control" id="quantidade" type="text"  placeholder="Digite a quantidade" ng-model="current.quantidade" value="{{current.quantidade}}">
+                                </div>
+                                <br>
+                                <div class="col-md-6">
+                                    <label for="preco">Preço</label>
+                                    <input class="form-control" id="preco" type="text" placeholder="Digite o nome"  ng-model="current.preco" value="{{current.preco}}" >
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="form-row">
-                                <div class="col-md-6">
-                                    <label for="exampleInputPassword1">Preço</label>
-                                    <input class="form-control" id="exampleInputPassword1" type="preco" placeholder="Digite o valor">
-                                </div>
-                            </div>
-                        </div>
+
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Salvar</button>
+                    <button type="button" class="btn btn-primary" ng-click="addNew(current)" data-dismiss="modal">Salvar</button>
                 </div>
             </div>
         </div>

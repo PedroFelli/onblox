@@ -15,13 +15,8 @@ public class ClienteServiceImpl implements ClienteService {
     @Autowired
     private ClienteRepository clienteRepository;
 
-    public Cliente findById(String cpf){
-        return clienteRepository.findByCpf(cpf);
-    }
-
-    @Override
-    public Cliente findById(Long id) {
-        return null;
+    public Cliente findById(Long id){
+        return clienteRepository.findById(id).get();
     }
 
     @Override
@@ -52,15 +47,8 @@ public class ClienteServiceImpl implements ClienteService {
     }
 
 
-    public void deleteAllCliente(){
-        clienteRepository.deleteAll();
-    }
-
-    public List<Cliente> findAllCliente(){
-        return clienteRepository.findAll();
-    }
 
     public boolean isClienteExist(Cliente cliente){
-        return findById(String.valueOf(cliente.getId())) != null;
+        return findById((long) cliente.getId()) != null;
     }
 }

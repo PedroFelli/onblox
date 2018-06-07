@@ -27,7 +27,6 @@ public class ClienteController {
 
    @RequestMapping(value = "/cliente/", method = RequestMethod.GET)
     public ResponseEntity<List<Cliente>> listAllCliente(){
-	   System.out.println("teste");
        List<Cliente> clientes = clienteService.findAllClientes();
        if(clientes.isEmpty()){
 
@@ -37,7 +36,7 @@ public class ClienteController {
    }
 
    @RequestMapping(value = "/cliente/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Cliente> getCliente(@PathVariable("id") long id){
+    public ResponseEntity<Cliente> getCliente(@PathVariable Long id){
         Cliente cliente = clienteService.findById(id);
         if (cliente == null){
             return new ResponseEntity(HttpStatus.NOT_FOUND);
@@ -46,30 +45,23 @@ public class ClienteController {
    }
 
    @RequestMapping(value = "/cliente/", method = RequestMethod.POST)
-    public ResponseEntity<String> createCliente(@RequestBody Cliente cliente, UriComponentsBuilder ucBuilder){
-        if (clienteService.isClienteExist(cliente)){
-            return new ResponseEntity(HttpStatus.CONFLICT);
-        }
+    public ResponseEntity<String> createCliente(@RequestBody Cliente cliente){
         clienteService.saveCliente(cliente);
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(ucBuilder.path("/api/cliente/{id}").buildAndExpand(cliente.getId()).toUri());
-        return new ResponseEntity<String>(headers, HttpStatus.CREATED);
+        return new ResponseEntity( HttpStatus.CREATED);
 
    }
 
    @RequestMapping(value ="/cliente/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<?> updateCliente(@PathVariable("id") long id, @RequestBody Cliente cliente){
+    public ResponseEntity<?> updateCliente(@PathVariable long id, @RequestBody Cliente cliente){
         Cliente currentCliente = clienteService.findById(id);
-        if (currentCliente == null){
-            return new ResponseEntity( HttpStatus.NOT_FOUND);
-       }
-       currentCliente.setCpf(cliente.getCpf());
+
+
        currentCliente.setId(cliente.getId());
        currentCliente.setNome(cliente.getNome());
-       currentCliente.setStatus(cliente.getStatus());
        currentCliente.setTipo(cliente.getTipo());
-     
+       currentCliente.setStatus(cliente.getStatus());
+       currentCliente.setCpf(cliente.getCpf());
+       currentCliente.setContato(cliente.getContato());
 
        clienteService.updateCliente(currentCliente);
        return new ResponseEntity<Cliente>(currentCliente, HttpStatus.OK);

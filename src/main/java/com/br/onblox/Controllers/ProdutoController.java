@@ -79,5 +79,4 @@ public class ProdutoController {
         produtoService.deleteAllProdutos();
         return new ResponseEntity<Produto>(HttpStatus.NO_CONTENT);
     }
-
 }

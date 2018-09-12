@@ -5,9 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
 
 
-import com.br.onblox.Util.JpaConfiguration;
+//import com.br.onblox.Util.JpaConfiguration;
 
-@Import(JpaConfiguration.class)
 @SpringBootApplication(scanBasePackages= {"com.br.onblox"})
 public class OnbloxApplication {
 
